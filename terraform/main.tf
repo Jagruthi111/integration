@@ -10,7 +10,7 @@ resource "aws_internet_gateway" "igw-docker" {
   vpc_id = aws_vpc.new_vpc.id
 
   tags = {
-    Name = "tarun_igw"
+    Name = "docker-igw"
   }
 }
 
@@ -60,7 +60,7 @@ resource "aws_security_group" "all_traffic" {
 
 resource "aws_instance" "test_first" {
   ami                          = "ami-03bb6d83c60fc5f7c"
-  instance_type                = "t2.micro"
+  instance_type                = "t2.medium"
   key_name                     = "jaanu"
   vpc_security_group_ids       = [aws_security_group.all_traffic.id]
   subnet_id                    = aws_subnet.example_subnet.id
