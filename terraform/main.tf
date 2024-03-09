@@ -6,7 +6,7 @@ resource "aws_vpc" "new_vpc" {
   }
 }
 
-resource "aws_internet_gateway" "tarun_igw" {
+resource "aws_internet_gateway" "igw-docker" {
   vpc_id = aws_vpc.new_vpc.id
 
   tags = {
@@ -19,7 +19,7 @@ resource "aws_route_table" "public" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.tarun_igw.id
+    gateway_id = aws_internet_gateway.igw-docker.id
   }
 }
 
@@ -60,14 +60,14 @@ resource "aws_security_group" "all_traffic" {
 
 resource "aws_instance" "test_first" {
   ami                          = "ami-03bb6d83c60fc5f7c"
-  instance_type                = "t2.medium"
-  key_name                     = "test1"
+  instance_type                = "t2.micro"
+  key_name                     = "jaanu"
   vpc_security_group_ids       = [aws_security_group.all_traffic.id]
   subnet_id                    = aws_subnet.example_subnet.id
   associate_public_ip_address  = true
   user_data                    = data.template_file.web_userdata.rendered
   tags = {
-    Name     = "HelloWorld"
+    Name     = "HelloDocker"
     Stage    = "testing"
     Location = "India"
   }
