@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {docker { image 'terraform'}
 
     parameters {
         string(name: 'environment', defaultValue: 'terraform', description: 'Workspace/environment file to use for deployment')
