@@ -69,17 +69,5 @@ pipeline {
             }
         }
         
-        stage('Destroy') {
-            when {
-                expression { params.destroy }
-            }
-            steps {
-                input message: 'Do you want to destroy the infrastructure?',
-                      ok: 'Destroy'
-                dir('assignment-docker/terraform') {
-                    sh 'terraform destroy -auto-approve'
-                }
-            }
-        }
     }
 }
